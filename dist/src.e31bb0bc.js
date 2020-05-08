@@ -148,169 +148,71 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.addTodoMsg = addTodoMsg;
+exports.completeTodoMsg = completeTodoMsg;
+exports.removeTodoMsg = removeTodoMsg;
+exports.removeAllTodoMsg = removeAllTodoMsg;
 exports.default = void 0;
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var MSGS = {
   ADD_TODO: 'ADD_TODO',
   COMPLETE_TODO: 'COMPLETE_TODO',
   REMOVE_TODO: 'REMOVE_TODO',
   REMOVE_ALL_TODOS: 'REMOVE_ALL_TODOS'
-}; // notice that each of the parameters taken is a property from my model
-// export function addTodoMsg(text) {
-//   return {
-//     type: MSGS.ADD_TODO,
-//     text,
-//   }
-// }
-// export function completeTodoMsg(id) {
-//   return {
-//     type: MSGS.COMPLETE_TODO,
-//     done: !done
-//   }
-// }
-// export function removeTodoMsg(id) {
-//   return {
-//     type: MSGS.REMOVE_TODO,
-//     id,
-//   }
-// }
-// export function removeAllTodoMsg(???) {
-//   return {
-//     type: MSGS.REMOVE_ALL_TODOS,
-//     // I just empty out the entire array
-//   }
-// }
+};
+
+function addTodoMsg(text) {
+  return {
+    type: MSGS.ADD_TODO,
+    text: text
+  };
+}
+
+function completeTodoMsg(id) {
+  return {
+    type: MSGS.COMPLETE_TODO,
+    done: !done
+  };
+}
+
+function removeTodoMsg(id) {
+  return {
+    type: MSGS.REMOVE_TODO,
+    id: id
+  };
+}
+
+function removeAllTodoMsg() {
+  return {
+    type: MSGS.REMOVE_ALL_TODOS // I just empty out the entire array
+
+  };
+}
 
 function updateState(msg, model) {
   switch (msg.type) {
-    case MSGS.SHOW_FORM:
+    case MSGS.ADD_TODO:
       {
-        var showForm = msg.showForm;
-        return _objectSpread(_objectSpread({}, model), {}, {
-          showForm: showForm,
-          description: '',
-          calories: 0
-        });
+        return;
       }
 
-    case MSGS.CALORIES_INPUT:
+    case MSGS.COMPLETE_TODO:
       {
-        var calories = R.pipe(parseInt, R.defaultTo(0))(msg.calories);
-        return _objectSpread(_objectSpread({}, model), {}, {
-          calories: calories
-        });
+        return;
       }
 
-    case MSGS.MEAL_INPUT:
+    case SGS.REMOVE_TODO:
       {
-        var description = msg.description;
-        return _objectSpread(_objectSpread({}, model), {}, {
-          description: description
-        });
+        return;
       }
 
-    case MSGS.SAVE_MEAL:
+    case MSGS.REMOVE_ALL_TODOS:
       {
-        var editId = model.editId;
-        var updatedModel = editId !== null ? edit(msg, model) : add(msg, model);
-        return updatedModel;
-      }
-
-    case MSGS.DELETE_MEAL:
-      {
-        var id = msg.id;
-        var meals = R.filter(function (meal) {
-          return meal.id !== id;
-        }, model.meals);
-        return _objectSpread(_objectSpread({}, model), {}, {
-          meals: meals
-        });
-      }
-
-    case MSGS.EDIT_MEAL:
-      {
-        var _editId = msg.editId;
-        var meal = R.find(function (meal) {
-          return meal.id === _editId;
-        }, model.meals);
-        var _description = meal.description,
-            _calories = meal.calories;
-        return _objectSpread(_objectSpread({}, model), {}, {
-          // spreads the existing model
-          editId: _editId,
-          // I now override this prop...
-          description: _description,
-          // and this prop...
-          calories: _calories,
-          // and this prop...
-          showForm: true // and this prop
-
-        });
+        return;
       }
 
     default:
       return model;
   }
-}
-
-function add(msg, model) {
-  var nextId = model.nextId,
-      description = model.description,
-      calories = model.calories;
-  var meal = {
-    id: nextId,
-    description: description,
-    calories: calories
-  };
-  var meals = [].concat(_toConsumableArray(model.meals), [meal]);
-  return _objectSpread(_objectSpread({}, model), {}, {
-    meals: meals,
-    nextId: nextId + 1,
-    description: '',
-    calories: 0,
-    showForm: false
-  });
-}
-
-function edit(msg, model) {
-  var description = model.description,
-      calories = model.calories,
-      editId = model.editId;
-  var meals = R.map(function (meal) {
-    if (meal.id === editId) {
-      return _objectSpread(_objectSpread({}, meal), {}, {
-        description: description,
-        calories: calories
-      });
-    } else {
-      return meal;
-    }
-  }, model.meals);
-  return _objectSpread(_objectSpread({}, model), {}, {
-    meals: meals,
-    description: '',
-    calories: 0,
-    showForm: false,
-    editId: null
-  });
 }
 
 var _default = updateState;
@@ -332,26 +234,22 @@ exports.default = void 0;
 var initModel = JSON.parse(localStorage.getItem('todos')) || [];
 var _default = initModel;
 exports.default = _default;
-},{}],"View.js":[function(require,module,exports) {
+},{}],"views/views.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.p = p;
+exports.h2 = h2;
+exports.ul = ul;
+exports.li = li;
+exports.label = label;
+exports.span = span;
+exports.i = i;
+exports.input = input;
+exports.formSet = formSet;
 
-// import { p } from './views'
-// div.wrapper
-// h2 i.farfa-tasks
-// ul#todos
-// todo li's
-// end todos
-// form#form-todos
-// input type=text
-// input type=submit
-// input type=submit
-// end form
-// end wrapper
 function p() {
   var p = document.createElement('p');
   p.textContent = "🏄🏄🏄";
@@ -368,7 +266,27 @@ function ul() {
   var ul = document.createElement('ul');
   ul.className = "todos";
   ul.id = "todos";
+  ul.addEventListener('submit', function () {
+    return dispatch(addTodoMsg(text));
+  });
   return ul;
+}
+
+function li() {
+  var li = document.createElement('li');
+  return li;
+}
+
+function label() {
+  var label = document.createElement('label');
+  label.for = "test";
+  return label;
+}
+
+function span() {
+  var span = document.createElement("span");
+  span.className = "".concat(todo.done ? "done" : '');
+  return span;
 }
 
 function i() {
@@ -390,20 +308,44 @@ function formSet() {
   var form = document.createElement('form');
   form.className = "form-todos";
   form.id = "form-todos";
-  document.addEventListener('submit', dispatch(msg));
+  document.addEventListener('submit', function () {
+    return dispatch(msg);
+  });
   return form;
 }
+},{}],"View.js":[function(require,module,exports) {
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _views = require("./views/views");
+
+// div.wrapper
+// h2 i.farfa-tasks
+// ul#todos
+// todo li's
+// end todos
+// form#form-todos
+// input type=text
+// input type=submit
+// input type=submit
+// end form
+// end wrapper
 function view(dispatch, model) {
   var wrapper = document.createElement('div');
   wrapper.className = "wrapper";
-  wrapper.appendChild(p());
+  wrapper.appendChild((0, _views.h2)());
+  wrapper.appendChild((0, _views.ul)());
+  wrapper.appendChild((0, _views.formSet)());
   return wrapper;
 }
 
 var _default = view;
 exports.default = _default;
-},{}],"index.js":[function(require,module,exports) {
+},{"./views/views":"views/views.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _App = _interopRequireDefault(require("./App"));
