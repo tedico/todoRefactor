@@ -364,13 +364,20 @@ function h2() {
   return h2;
 }
 
+function ul() {
+  var ul = document.createElement('ul');
+  ul.className = "todos";
+  ul.id = "todos";
+  return ul;
+}
+
 function i() {
   var i = document.createElement('i');
   i.className = "far fa-tasks";
   return i;
 }
 
-function input() {
+function input(type, name) {
   var input = document.createElement('input');
   input.type = "text";
   input.name = "item";
@@ -381,12 +388,15 @@ function input() {
 
 function formSet() {
   var form = document.createElement('form');
+  form.className = "form-todos";
   form.id = "form-todos";
   document.addEventListener('submit', dispatch(msg));
+  return form;
 }
 
-function view() {
-  var wrapper = document.createElement('div').className = "wrapper";
+function view(dispatch, model) {
+  var wrapper = document.createElement('div');
+  wrapper.className = "wrapper";
   wrapper.appendChild(p());
   return wrapper;
 }
@@ -437,7 +447,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56910" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57630" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

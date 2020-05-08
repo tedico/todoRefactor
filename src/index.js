@@ -1,13 +1,9 @@
-console.log("yew 🏄")
+console.log("yew 🏄🏄🏄 from index.js")
 import app from './App'
-import model from './Model'
+import updateState from './UpdateState'
+import initModel from './Model'
 import view from './View'
 
-const root = document.getElementById('root')
+const rootNode = document.getElementById('root')
 
-app(initModel,view, root) {
-
-  function dispatch(msg, model) {
-    
-  }
-}
+app(initModel, updateState, view, rootNode)
