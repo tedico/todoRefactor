@@ -1,5 +1,5 @@
 import {
-  p,
+  div,
   h2,
   ul,
   li,
@@ -21,6 +21,18 @@ import {
     // end form
 // end wrapper
 
+
+// this for the li's  with in the ul
+export function formSet() {
+  const form = document.createElement('form')
+  form.className = "form-todos"
+  form.id = "form-todos"
+  document.addEventListener('submit', () => dispatch(msg))
+  return form
+}
+
+
+ul.addEventListener('click', () => e.target.tagName === 'SPAN' ? dispatch(toggleCompleteTodoMsg(id)) : dispatch(completeTodoMsg(id)))
 // how would I pass in child elemets?
 function view(dispatch, model) {
   let wrapper = document.createElement('div')
