@@ -5,7 +5,6 @@ import {
   li,
   label,
   span,
-  i,
   input,
   formSet
 } from './views/views'
@@ -22,10 +21,11 @@ import {
     // end form
 // end wrapper
 
+// how would I pass in child elemets?
 function view(dispatch, model) {
   let wrapper = document.createElement('div')
   wrapper.className = "wrapper"
-  wrapper.appendChild(h2())
+  wrapper.appendChild(h2('Todo App')) //"far fa-tasks"
   wrapper.appendChild(ul())
   wrapper.appendChild(formSet())
 

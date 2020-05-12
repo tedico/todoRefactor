@@ -1,6 +1,6 @@
 const MSGS = {
   ADD_TODO: 'ADD_TODO',
-  COMPLETE_TODO: 'COMPLETE_TODO',
+  TOGGLE_COMPLETE_TODO: 'TOGGLE_COMPLETE_TODO',
   REMOVE_TODO: 'REMOVE_TODO',
   REMOVE_ALL_TODOS: 'REMOVE_ALL_TODOS'
 }
@@ -14,7 +14,7 @@ export function addTodoMsg(text) {
 
 }
 
-export function completeTodoMsg(id) {
+export function toggleCompleteTodoMsg(id) {
   return {
     type: MSGS.COMPLETE_TODO,
     done: !done
@@ -44,11 +44,11 @@ function updateState(msg, model) {
       return
     }
 
-    case MSGS.COMPLETE_TODO: {
+    case MSGS.TOGGLE_COMPLETE_TODO: {
       return
     }
 
-    case SGS.REMOVE_TODO: {
+    case MSGS.REMOVE_TODO: {
       return
     }
 

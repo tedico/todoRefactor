@@ -242,11 +242,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.p = p;
 exports.h2 = h2;
+exports.i = i;
 exports.ul = ul;
 exports.li = li;
 exports.label = label;
 exports.span = span;
-exports.i = i;
 exports.input = input;
 exports.formSet = formSet;
 
@@ -259,7 +259,14 @@ function p() {
 function h2() {
   var h2 = document.createElement('h2');
   h2.textContent = "Todo App";
+  h2.appendChild(i());
   return h2;
+}
+
+function i() {
+  var i = document.createElement('i');
+  i.className = "far fa-tasks";
+  return i;
 }
 
 function ul() {
@@ -287,12 +294,6 @@ function span() {
   var span = document.createElement("span");
   span.className = "".concat(todo.done ? "done" : '');
   return span;
-}
-
-function i() {
-  var i = document.createElement('i');
-  i.className = "far fa-tasks";
-  return i;
 }
 
 function input(type, name) {
