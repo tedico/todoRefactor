@@ -21,27 +21,22 @@ import {
     // end form
 // end wrapper
 
+// export function formSet() {
+//   const form = document.createElement('form')
+//   form.className = "form-todos"
+//   form.id = "form-todos"
+//   document.addEventListener('submit', () => dispatch(msg))
+//   return form
+// }
+//"far fa-tasks"
 
 // this for the li's  with in the ul
-export function formSet() {
-  const form = document.createElement('form')
-  form.className = "form-todos"
-  form.id = "form-todos"
-  document.addEventListener('submit', () => dispatch(msg))
-  return form
-}
-
-
-ul.addEventListener('click', () => e.target.tagName === 'SPAN' ? dispatch(toggleCompleteTodoMsg(id)) : dispatch(completeTodoMsg(id)))
+// ul.addEventListener('click', () => e.target.tagName === 'SPAN' ? dispatch(toggleCompleteTodoMsg(id)) : dispatch(completeTodoMsg(id)))
 // how would I pass in child elemets?
 function view(dispatch, model) {
-  let wrapper = document.createElement('div')
-  wrapper.className = "wrapper"
-  wrapper.appendChild(h2('Todo App')) //"far fa-tasks"
-  wrapper.appendChild(ul())
-  wrapper.appendChild(formSet())
-
-  return wrapper
+  return div({ className:'wrapper'}, '' , [
+    h2('', 'Todo App',[i('far fa-tasks')]),
+  ])
 }
 
 
